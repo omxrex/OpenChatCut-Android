@@ -50,5 +50,40 @@ Expected: `ADD ok=true`, `SPLIT ok=true`, `ITEMS after edits=2`, progress from
 0% to 99%, `RENDER ok=true`, `FILE_EXISTS=true`, and an `ffprobe` report showing
 real h264/aac streams with a duration matching the edited timeline.
 
-Generated files (`classes/`, `*.jar`, `libs/`, `rendered-test.mp4`) are ignored
-by git.
+## Tool-execution harness
+
+`ToolHarness.java` runs the real `AgentTools.execute()` against the real
+`EditorEngine` under ART. It proves tool calls produce actual timeline mutations
+without needing a running Ollama daemon (the AI transport itself is not mocked;
+it is simply not exercised here). Build it the same way as `RenderHarness.java`,
+substituting `ToolHarness` for `RenderHarness`, then run:
+
+```bash
+CLASSPATH="$T/tool-harness.jar:$APK" \
+    /system/bin/app_process -Xnoimage-dex2oat / ToolHarness \
+    /absolute/path/to/input.mp4
+```
+
+Expected output (observed 2026-11-21):
+
+```
+CATALOG_SIZE=22
+TOOL read_timeline ok=true msg=Read 1 clips across 1 tracks
+TOOL split_item ok=true msg=Split clip at frame 180
+ITEMS_AFTER_SPLIT=2
+TOOL add_transition ok=true msg=Added CROSS_DISSOLVE transition
+TRANSITIONS=1
+TOOL set_aspect_ratio ok=true msg=Canvas 1080x1920
+CANVAS=1080x1920
+TOOL undo_last_change ok=true msg=Undid last edit
+CANVAS_AFTER_UNDO=1920x1080
+TOOL redo_last_change ok=true msg=Redid edit
+CANVAS_AFTER_REDO=1080x1920
+```
+
+Note: `new ContextWrapper(null)` is used only as a non-null placeholder because
+Kotlin null-checks the constructor parameter; the tools exercised here never
+dereference the context.
+
+Generated files (`classes/`, `toolclasses/`, `*.jar`, `libs/`, `rendered-test.mp4`,
+`*-out.txt`) are ignored by git.

@@ -7,7 +7,10 @@ local.properties
 .DS_Store
 captures/
 verification/classes/
+verification/toolclasses/
 verification/*.jar
 verification/libs/
 verification/rendered-test.mp4
 verification/ffaar/
+verification/*-out.txt
+verification/Hello.java

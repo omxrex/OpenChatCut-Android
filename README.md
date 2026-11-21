@@ -47,7 +47,7 @@ UI (MainActivity, programmatic landscape workspace)
  ├── TimelineRenderer → filtergraph → FFmpegKit → MP4
  └── AgentController
        ├── OllamaClient (native /api/chat, /api/tags)
-       └── AgentTools (21 executable tools bound to the engine above)
+       └── AgentTools (22 executable tools bound to the engine above)
 ```
 
 ### Why FFmpegKit instead of Remotion
@@ -119,7 +119,7 @@ Exports are written to `<app external files>/exports/`.
 ## What is NOT implemented (deliberately, not silently)
 
 The upstream project has 124 edit tools and 23 ask tools. This port implements a focused,
-fully-working subset (21 tools). The following upstream capabilities are **not** present and the
+fully-working subset (22 tools). The following upstream capabilities are **not** present and the
 agent will report a tool error rather than pretend to do them:
 
 - Cloud/API provider backends (Anthropic, OpenAI, Gemini, Kimi, Qwen cloud, etc.) and API keys —
@@ -170,7 +170,7 @@ app/src/main/java/com/openchatcut/android/
   media/MediaAnalysis.kt       scene/motion/silence/Whisper
   media/TimelineRenderer.kt    timeline → FFmpeg filtergraph → MP4
   ai/OllamaClient.kt           native Ollama /api/chat + /api/tags
-  ai/AgentTools.kt             21 executable tools
+  ai/AgentTools.kt             22 executable tools
   ai/AgentController.kt        local model tool loop
 upstream/                      verbatim upstream sources used for the port
 app/src/main/assets/upstream/  same sources packaged for on-device audit

@@ -84,6 +84,30 @@ size=5859926
 This verifies real timeline mutation (add + split → 2 items), real FFmpegKit
 filtergraph encoding with genuine progress, and a real playable MP4 artifact.
 
+### Agent tool execution (same compiled classes, 2026-11-21)
+
+`verification/ToolHarness.java` executed the real `AgentTools.execute()` against
+the real editor engine under ART:
+
+```
+CATALOG_SIZE=22
+TOOL read_timeline ok=true msg=Read 1 clips across 1 tracks
+TOOL split_item ok=true msg=Split clip at frame 180
+ITEMS_AFTER_SPLIT=2
+TOOL add_transition ok=true msg=Added CROSS_DISSOLVE transition
+TRANSITIONS=1
+TOOL set_aspect_ratio ok=true msg=Canvas 1080x1920
+TOOL undo_last_change ok=true msg=Undid last edit
+CANVAS_AFTER_UNDO=1920x1080
+TOOL redo_last_change ok=true msg=Redid edit
+CANVAS_AFTER_REDO=1080x1920
+```
+
+This proves tool instructions cause real operations and reversibility. It does
+**not** verify the LLM response itself: no Ollama daemon is available in this
+environment (connection refused on both loopback addresses), so the AI step 7
+above remains NOT RUN.
+
 ## What still needs a normal device/host
 
 1. `adb install -r app/build/outputs/apk/debug/app-debug.apk`
