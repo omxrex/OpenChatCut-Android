@@ -14,3 +14,5 @@ verification/rendered-test.mp4
 verification/ffaar/
 verification/*-out.txt
 verification/Hello.java
+
+*.class
