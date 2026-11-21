@@ -1,7 +1,11 @@
 # OpenChatCut Android
 
+[![Release](https://img.shields.io/badge/release-v0.1.0-blue.svg)](https://github.com/omxrex/OpenChatCut-Android/releases/latest)
+
 A real native Android 12+ (ARM64) adaptation of the open-source
 [OpenChatCut](https://github.com/0xsline/OpenChatCut) desktop video editor.
+
+**Ready-to-install APK:** [app-debug.apk](https://github.com/omxrex/OpenChatCut-Android/releases/download/v0.1.0/app-debug.apk) · [all downloads](https://github.com/omxrex/OpenChatCut-Android/releases/latest)
 
 This is **not a mock or a UI-only demo**. Media import, thumbnails, probing, scene/silence/motion
 analysis, timeline edits, captions, transitions, local-model tool calling and MP4 export all run
